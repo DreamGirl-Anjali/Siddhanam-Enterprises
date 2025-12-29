@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body{margin:0;font-family:Arial;background:#f7f7f7}
-header{background:#ff7a00;color:#fff;padding:20px;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;padding:20px}
-.card{background:#fff;border-radius:12px;padding:12px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
-.card img{width:100%;height:180px;object-fit:contain}
-.price{font-weight:bold;margin:8px 0}
-.btn{display:inline-block;background:#25D366;color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none}
-footer{text-align:center;padding:12px;background:#eee}
+header{background:#ff7a00;color:#fff;padding:18px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:14px}
+.card{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.card img{width:100%;height:150px;object-fit:contain}
+h3{font-size:14px;margin:8px 0}
+.btn{display:inline-block;background:#25D366;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:13px}
+footer{text-align:center;padding:12px;background:#eee;font-size:14px}
 </style>
 </head>
 <body>
@@ -22,18 +22,33 @@ footer{text-align:center;padding:12px;background:#eee}
 <p>Rohini Sector 15, Delhi – 110085</p>
 </header>
 
-<div class="grid">
-<div class="card">
-<img src="images/12.5 LCD Tablet.jpg" alt="12.5 LCD Tablet">
-<h3>12.5 LCD Tablet</h3>
-<p class="price">₹ 159</p>
-<a class="btn" href="https://wa.me/917428516542">Order on WhatsApp</a>
-</div>
-</div>
+<div class="grid" id="products"></div>
 
 <footer>
 <p>WhatsApp Orders: 7428516542</p>
 </footer>
+
+<script>
+fetch("https://api.github.com/repos/DreamGirl-Anjali/Siddhanam-Enterprises/contents/images")
+.then(res => res.json())
+.then(files => {
+  const grid = document.getElementById("products");
+  files.forEach(file => {
+    if(file.name.match(/\.(jpg|jpeg|png|webp)$/i)){
+      const productName = file.name.replace(/\.(jpg|jpeg|png|webp)$/i,'');
+      grid.innerHTML += `
+        <div class="card">
+          <img src="${file.download_url}" alt="${productName}">
+          <h3>${productName}</h3>
+          <a class="btn" href="https://wa.me/917428516542?text=I%20want%20to%20order%20${encodeURIComponent(productName)}">
+            Order on WhatsApp
+          </a>
+        </div>
+      `;
+    }
+  });
+});
+</script>
 
 </body>
 </html>
