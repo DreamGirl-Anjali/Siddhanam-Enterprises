@@ -29,7 +29,7 @@ footer{text-align:center;padding:12px;background:#eee;font-size:14px}
 </footer>
 
 <script>
-fetch("https://api.github.com/repos/DreamGirl-Anjali/Siddhanam-Enterprises/contents/images")
+fetch("https://api.github.com/repos/DreamGirl-Anjali/Siddhanam-Enterprises/contents/images?ref=main")
 .then(res => res.json())
 .then(files => {
   const grid = document.getElementById("products");
